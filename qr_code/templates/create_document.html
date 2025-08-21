@@ -1,0 +1,7 @@
+<!-- create_document.html -->
+<h2>Create Document</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Document</button>
+</form>
