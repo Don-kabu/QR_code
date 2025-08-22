@@ -39,13 +39,13 @@ def create_document(request):
         if form.is_valid():
             form.save()
             document_name = form.cleaned_data['file']
-            id = Document.objects.last().unique_id
-            return_link = insert_qr_pdf(str(document_name)[:-4],id=id)
+            id = Document.objects.last()
+            return_link = insert_qr_pdf(str(document_name)[:-4],id=id.unique_id)
             
             send_document_notification(
-            to_email='user@example.com',
-            to_phone='+243812345678',
-            document_label='Facture Juin',
+            to_email='kabu.d@caculus-system.net',
+            to_phone='+243892649177',
+            document_label=id.label,
             document_url=return_link
         )
 
@@ -66,11 +66,12 @@ def visit_link(request,id):
         document = Document.objects.get(unique_id=id)
         print(document)
         send_document_notification(
-            to_email='kabudon19@gmail.com',
+            to_email='kabu.d@caculus-system.net',
             to_phone='+243892649177',
-            document_label= document,
-            document_url=""
+            document_label=document.label,
+            document_url="return_link"
         )
+
         print("""
 
 

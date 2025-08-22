@@ -91,6 +91,7 @@ def insert_qr_pdf(original_pdf,id):
 
 
 
+
 from django.core.mail import send_mail
 from twilio.rest import Client
 
@@ -112,16 +113,16 @@ def send_document_notification(to_email, to_phone, document_label, document_url)
     # -----------------------------
     # 2️⃣ Envoi du SMS via Twilio
     # -----------------------------
-    # account_sid = 'TON_ACCOUNT_SID'
-    # auth_token = 'TON_AUTH_TOKEN'
-    # from_number = '+1234567890'  # numéro Twilio
+    account_sid = 'AC015ea1c56512cba0a0b3bb8ad454e8f4'
+    auth_token = '0cba21d3dca52908554c773d100050ba'
+    from_number = '+243892649177'  # numéro Twilio
 
-    # client = Client(account_sid, auth_token)
+    client = Client(account_sid, auth_token)
     
-    # sms_message = f"Document '{document_label}' disponible: {document_url}"
+    sms_message = f"Document '{document_label}' disponible: {document_url}"
     
-    # client.messages.create(
-    #     body=sms_message,
-    #     from_=from_number,
-    #     to=to_phone
-    # )
+    client.messages.create(
+        body=sms_message,
+        from_=from_number,
+        to=to_phone
+    )

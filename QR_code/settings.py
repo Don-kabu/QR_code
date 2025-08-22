@@ -137,7 +137,9 @@ MEDIA_ROOT = BASE_DIR/"media"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'kabu.d@calculus-system.net'
+EMAIL_HOST = 'smtp.hostinger.com'  # ou smtp de ton fournisseur
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'kabu.d@calculus-system.net'
+EMAIL_HOST_PASSWORD = 'TON_MOT_DE_PASSE'  # mot de passe de ton compte email
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
