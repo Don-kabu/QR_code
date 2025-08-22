@@ -43,10 +43,10 @@ def create_document(request):
             return_link = insert_qr_pdf(str(document_name)[:-4],id=id.unique_id)
             
             send_document_notification(
-            to_email='kabu.d@caculus-system.net',
+            to_email='kabudon19@gmail.com',
             to_phone='+243892649177',
             document_label=id.label,
-            document_url=return_link
+            document_url= ""
         )
 
             return HttpResponse(f"<a href='{return_link}'> download<a/>")
@@ -62,17 +62,17 @@ def document_list(request):
 
 
 def visit_link(request,id):
-    try:
-        document = Document.objects.get(unique_id=id)
-        print(document)
-        send_document_notification(
-            to_email='kabu.d@caculus-system.net',
-            to_phone='+243892649177',
-            document_label=document.label,
-            document_url="return_link"
-        )
+    # try:
+    document = Document.objects.get(unique_id=id)
+    print(document)
+    send_document_notification(
+        to_email='kabu.d@calculus-system.net',
+        to_phone='+243892268023',
+        document_label=document.label,
+        document_url=""
+    )
 
-        print("""
+    print("""
 
 
 
@@ -80,8 +80,8 @@ def visit_link(request,id):
 
 ok
 """)
-    except:
-        return HttpResponse("does not exist")
+    # except:
+    #     return HttpResponse("does not exist")
     return redirect("http://www.google.com")
 
 
