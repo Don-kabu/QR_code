@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import json
 from .models import Document,Scan
 from .utils import get_client_ip,insert_qr_pdf
-from .forms import ScanForm,DocumentForm
+from .forms import DocumentForm
 from django.http import HttpResponse
 from django.utils.text import slugify
 
