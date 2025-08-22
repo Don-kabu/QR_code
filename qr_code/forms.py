@@ -22,14 +22,3 @@ class DocumentForm(forms.ModelForm):
             "unique_id": forms.TextInput(attrs={"class": "form-control", "placeholder": "Unique Identifier"}),
         }
 
-
-class ScanForm(forms.ModelForm):
-    class Meta:
-        model = Scan
-        fields = ["id", "label", "document"]
-
-        widgets = {
-            "id": forms.NumberInput(attrs={"class": "form-control", "placeholder": "Scan ID"}),
-            "label": forms.TextInput(attrs={"class": "form-control", "placeholder": "Scan label"}),
-            "document": forms.Select(attrs={"class": "form-control"}),
-        }
