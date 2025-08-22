@@ -141,5 +141,5 @@ EMAIL_HOST = 'smtp.hostinger.com'  # ou smtp de ton fournisseur
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kabu.d@calculus-system.net'
-EMAIL_HOST_PASSWORD = 'TON_MOT_DE_PASSE'  # mot de passe de ton compte email
+EMAIL_HOST_PASSWORD = 'RO@admn#20'  # mot de passe de ton compte email
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
