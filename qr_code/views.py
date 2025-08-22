@@ -42,12 +42,12 @@ def create_document(request):
             id = Document.objects.last()
             return_link = insert_qr_pdf(str(document_name)[:-4],id=id.unique_id)
             
-            send_document_notification(
-            to_email='kabudon19@gmail.com',
-            to_phone='+243892649177',
-            document_label=id.label,
-            document_url= ""
-        )
+        #     send_document_notification(
+        #     to_email='kabudon19@gmail.com',
+        #     to_phone='+243892649177',
+        #     document_label=id.label,
+        #     document_url= ""
+        # )
 
             return HttpResponse(f"<a href='{return_link}'> download<a/>")
     else:
@@ -69,7 +69,7 @@ def visit_link(request,id):
         to_email='kabu.d@calculus-system.net',
         to_phone='+243892268023',
         document_label=document.label,
-        document_url=""
+        # document_url=""
     )
 
     print("""

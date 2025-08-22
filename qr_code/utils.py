@@ -8,6 +8,7 @@ from reportlab.lib.pagesizes import letter
 from io import BytesIO
 from PyPDF2 import PdfReader, PdfWriter
 from QR_code.settings import BASE_DIR,MEDIA_URL
+import datetime
 
 
 
@@ -96,8 +97,8 @@ from django.core.mail import send_mail
 from twilio.rest import Client
 
 def send_document_notification(to_email, to_phone, document_label, document_url):
-    subject = f"Nouveau Document: {document_label}"
-    message = f"Bonjour,\n\nLe document '{document_label}' est disponible. Vous pouvez le télécharger ici:\n{document_url}\n\nCordialement,\nKabu Dianzambi"
+    subject = f"Nouveau scanage signale: {document_label}"
+    message = f"Bonjour,\n\nLe document '{document_label}' a ete scane a {datetime.datetime.now()} par {""}\n\nCordialement,\nKabu Dianzambi"
 
     # -----------------------------
     # 1️⃣ Envoi de l'email (Mailpit)
