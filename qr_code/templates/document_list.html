@@ -81,6 +81,8 @@
 
     <div class="container">
         <h1>Liste des documents</h1>
+        <a href="{% url 'document_new'%}" class="button">Commencer</a>
+
         
         <ul>
             {% for document in documents %}
