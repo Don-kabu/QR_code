@@ -1,13 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>list</title>
+    <title>Liste des documents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #ecf0f1;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        li:hover {
+            background: #dfe6e9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
 </head>
 <body>
-    {% for document in documents %}
-        <li>{{document}}</li>
-    {% endfor %}
+
+    <header>
+        <h2>📄 Gestion des documents</h2>
+    </header>
+
+    <div class="container">
+        <h1>Liste des documents</h1>
+        
+        <ul>
+            {% for document in documents %}
+                <li>{{ document.label }} - {{ document.created_At|date:"d/m/Y H:i" }}</li>
+            {% empty %}
+                <li>Aucun document disponible</li>
+            {% endfor %}
+        </ul>
+
+        <div class="btn-container">
+            <a href="{% url 'document_new' %}" class="btn">➕ Ajouter un document</a>
+        </div>
+    </div>
+
 </body>
 </html>

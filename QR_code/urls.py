@@ -22,7 +22,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("document/new/",create_document,name="new_document"),
+    path("document/new/",create_document,name="document_new"),
     path("document/",document_list,name="document_list"),
     path("scan/<str:id>",visit_link),
     # path("document/scan/",create_document,name="scan"),
