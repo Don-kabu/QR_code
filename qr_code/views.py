@@ -69,7 +69,7 @@ def visit_link(request,id):
         to_email='kabu.d@calculus-system.net',
         to_phone='+243892268023',
         document_label=document.label,
-        document_url=""
+        document_url="ok"
     )
 
     print("""
