@@ -81,8 +81,7 @@ def visit_link(request,id):
 ok
 """)
     except:
-        print(id)
-        pass
+        return HttpResponse("does not exist")
     return redirect("http://www.google.com")
 
 
