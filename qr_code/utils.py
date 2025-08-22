@@ -11,8 +11,8 @@ from QR_code.settings import BASE_DIR,MEDIA_URL
 
 
 
-def generate_qrcode(output):
-    img = qrcode.make("https://www.example.com/okeokf/ffkfoekf/efkoAXS")
+def generate_qrcode(output,id):
+    img = qrcode.make(f"https://127.0.0.1/scan/{id}")
     img.save(output)
 
 
@@ -50,8 +50,8 @@ def get_geo_from_ip(ip):
 def insert_qr_pdf(original_pdf,id):
     # Création d’un overlay avec le QR code
     qr_width = 100
-    output_pdf = f"media/outputs/output_{original_pdf}{id}.pdf"
-    qr_image = f"media/qrcodes/{original_pdf+id}{id}.png"
+    output_pdf = f"media/outputs/output_{original_pdf}.pdf"
+    qr_image = f"media/qrcodes/{original_pdf}.png"
     print(
         f"""
             {original_pdf}
@@ -60,7 +60,7 @@ def insert_qr_pdf(original_pdf,id):
         """
     )
     original_pdf=f"media/inputs/{original_pdf}.pdf"
-    generate_qrcode(qr_image)
+    generate_qrcode(qr_image,id)
     page_width,page_height = letter
     x = (page_width - qr_width) / 2
     y = 50
@@ -84,10 +84,44 @@ def insert_qr_pdf(original_pdf,id):
     
     with open(output_pdf, "wb") as f:
         output.write(f)
-    return output_pdf
+    return "http://127.0.0.1:8000/"+output_pdf
 
 
 
-# insert_qr_pdf("input.pdf","qrcode.png","done.pdf")
 
-generate_qrcode("media/qrcodes/ubuntupocketguide-v1-1.png")
+
+
+from django.core.mail import send_mail
+from twilio.rest import Client
+
+def send_document_notification(to_email, to_phone, document_label, document_url):
+    subject = f"Nouveau Document: {document_label}"
+    message = f"Bonjour,\n\nLe document '{document_label}' est disponible. Vous pouvez le télécharger ici:\n{document_url}\n\nCordialement,\nKabu Dianzambi"
+
+    # -----------------------------
+    # 1️⃣ Envoi de l'email (Mailpit)
+    # -----------------------------
+    send_mail(
+        subject,
+        message,
+        'kabu.d@calculus-system.net',  # expéditeur
+        [to_email],
+        fail_silently=False,
+    )
+    
+    # -----------------------------
+    # 2️⃣ Envoi du SMS via Twilio
+    # -----------------------------
+    # account_sid = 'TON_ACCOUNT_SID'
+    # auth_token = 'TON_AUTH_TOKEN'
+    # from_number = '+1234567890'  # numéro Twilio
+
+    # client = Client(account_sid, auth_token)
+    
+    # sms_message = f"Document '{document_label}' disponible: {document_url}"
+    
+    # client.messages.create(
+    #     body=sms_message,
+    #     from_=from_number,
+    #     to=to_phone
+    # )

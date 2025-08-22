@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from qr_code.views import create_document
+from qr_code.views import create_document,home,document_list,visit_link
 from django.conf.urls.static import static
 from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("document/",create_document)
+    path("document/new/",create_document,name="new_document"),
+    path("document/",document_list,name="document_list"),
+    path("scan/<str:id>",visit_link),
+    # path("document/scan/",create_document,name="scan"),
+    path("",home,name="home",)
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from .models import Document,Scan
-from .utils import get_client_ip,insert_qr_pdf
+from .utils import get_client_ip,insert_qr_pdf,send_document_notification
 from .forms import DocumentForm
 from django.http import HttpResponse
 from django.utils.text import slugify
@@ -27,7 +27,8 @@ def log_scan(request):
 
 
 
-
+def home(request):
+    return render(request, "home.html")
 
 
 
@@ -38,15 +39,50 @@ def create_document(request):
         if form.is_valid():
             form.save()
             document_name = form.cleaned_data['file']
-            insert_qr_pdf(str(slugify(document_name))[:-4],form.cleaned_data['unique_id'])
-            return HttpResponse(str(document_name))
+            id = Document.objects.last().unique_id
+            return_link = insert_qr_pdf(str(document_name)[:-4],id=id)
+            
+            send_document_notification(
+            to_email='user@example.com',
+            to_phone='+243812345678',
+            document_label='Facture Juin',
+            document_url=return_link
+        )
+
+            return HttpResponse(f"<a href='{return_link}'> download<a/>")
     else:
         form = DocumentForm()
     return render(request, "create_document.html", {"form": form})
 
 
+def document_list(request):
+    documents = Document.objects.all()
+    return render(request, "document_list.html", {"documents": documents})
 
 
+
+def visit_link(request,id):
+    try:
+        document = Document.objects.get(unique_id=id)
+        print(document)
+        send_document_notification(
+            to_email='kabudon19@gmail.com',
+            to_phone='+243892649177',
+            document_label= document,
+            document_url=""
+        )
+        print("""
+
+
+
+
+
+ok
+""")
+    except:
+        print(id)
+        pass
+    return redirect("http://www.google.com")
 
 
 

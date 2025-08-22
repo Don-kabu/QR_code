@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-
+import os
 # Create your models here.
 
 
@@ -36,7 +36,25 @@ class Document(models.Model):
     
     
     def __str__(self):
-        return f"{self.label} ({self.unique_id})"
+        return f"{self.unique_id}"
+
+
+    def save(self, *args, **kwargs):
+        # 1 Générer un unique_id si vide
+        if not self.unique_id:
+            self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%m_%S_{self.label}") # ID unique automatique
+            print(self.unique_id)
+        
+        
+        
+        # 2 Renommer le fichier uploadé (si un fichier est fourni)
+        # if self.file and not self.file.name.startswith("inputs/"):
+        #     ext = os.path.splitext(self.file.name)[1]  # extension (.pdf, .png, etc.)
+        #     new_name = f"inputs/{self.unique_id}{ext}"
+        #     self.file.name = new_name
+        # 3 Appeler la méthode parent pour sauvegarder
+        super().save(*args, **kwargs)
+
 
 
 
