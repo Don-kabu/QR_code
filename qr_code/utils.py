@@ -84,7 +84,7 @@ def insert_qr_pdf(original_pdf,id):
     
     with open(output_pdf, "wb") as f:
         output.write(f)
-    return "https://qr-code-l3nz.onrender.com"+output_pdf
+    return "https://qr-code-l3nz.onrender.com/"+output_pdf
 
 
 
