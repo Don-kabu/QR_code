@@ -43,9 +43,9 @@ class Document(models.Model):
     def save(self, *args, **kwargs):
         # 1 Générer un unique_id si vide
         if not self.unique_id:
-            self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%M_%S_{self.label}") # ID unique automatique
+            self.unique_id = datetime.datetime.strftime(self.created_At,f"%H_%M_%S_{self.label}") # ID unique automatique
         
-        self.file.name = self.unique_id+self.file.name.replace(" ","_")
+        self.file.name = self.file.name.replace(" ","_")
 
         print(
             f"""
