@@ -48,12 +48,7 @@ class Document(models.Model):
         
         filename = os.path.splitext(self.file.name)[1]
         self.file.name = self.unique_id+filename.replace(" ","_")
-        print(
-                f"""
-                    unique id = {self.unique_id}
-                    file name = {self.file.name}
-                """
-            )
+        
 
         # 2 Renommer le fichier uploadé (si un fichier est fourni)
         # if self.file and not self.file.name.startswith("inputs/"):
