@@ -43,12 +43,12 @@ class Document(models.Model):
     def save(self, *args, **kwargs):
         # 1 Générer un unique_id si vide
         if not self.unique_id:
-            self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%m_%S_{self.label}") # ID unique automatique
+            self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%M_%S_{self.label}") # ID unique automatique
             print(self.unique_id)
         
         filename = os.path.splitext(self.file.name)[1]
         self.file.name = self.unique_id+filename.replace(" ","_")
-        
+
 
         # 2 Renommer le fichier uploadé (si un fichier est fourni)
         # if self.file and not self.file.name.startswith("inputs/"):
