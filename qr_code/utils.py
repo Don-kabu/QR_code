@@ -11,12 +11,19 @@ from django.core.mail import send_mail
 from twilio.rest import Client
 from QR_code.settings import BASE_DIR,MEDIA_URL
 import datetime
+import os
 
 
 
 def generate_qrcode(output,id):
     img = qrcode.make(f"https://qr-code-l3nz.onrender.com/scan/{id}")
-    img.save(output)
+    try :
+        img.save(output)
+    except:
+        os.mkdir("media/qrcodes/")
+        os.mkdir("media/outputs/")
+        img.save(output)
+
 
 
 
