@@ -44,10 +44,14 @@ class Document(models.Model):
         # 1 Générer un unique_id si vide
         if not self.unique_id:
             self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%M_%S_{self.label}") # ID unique automatique
-            print(self.unique_id)
         
-        filename = os.path.splitext(self.file.name)[1]
-        self.file.name = self.unique_id+filename.replace(" ","_")
+        self.file.name = self.unique_id+self.file.name.replace(" ","_")
+
+        print(
+            f"""
+            {self.file.name}
+        """
+        )
 
 
         # 2 Renommer le fichier uploadé (si un fichier est fourni)
