@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import os
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -45,8 +46,15 @@ class Document(models.Model):
             self.unique_id = datetime.datetime.strftime(self.created_At,f"_output%H_%m_%S_{self.label}") # ID unique automatique
             print(self.unique_id)
         
-        
-        
+        filename = os.path.splitext(self.file.name)[1]
+        self.file.name = self.unique_id+filename.replace(" ","_")
+        print(
+                f"""
+                    unique id = {self.unique_id}
+                    file name = {self.file.name}
+                """
+            )
+
         # 2 Renommer le fichier uploadé (si un fichier est fourni)
         # if self.file and not self.file.name.startswith("inputs/"):
         #     ext = os.path.splitext(self.file.name)[1]  # extension (.pdf, .png, etc.)

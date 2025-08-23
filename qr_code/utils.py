@@ -7,6 +7,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 from PyPDF2 import PdfReader, PdfWriter
+from django.core.mail import send_mail
+from twilio.rest import Client
 from QR_code.settings import BASE_DIR,MEDIA_URL
 import datetime
 
@@ -53,13 +55,6 @@ def insert_qr_pdf(original_pdf,id):
     qr_width = 100
     output_pdf = f"media/outputs/output_{original_pdf}.pdf"
     qr_image = f"media/qrcodes/{original_pdf}.png"
-    print(
-        f"""
-            {original_pdf}
-            {output_pdf}
-            {qr_image}
-        """
-    )
     original_pdf=f"media/inputs/{original_pdf}.pdf"
     generate_qrcode(qr_image,id)
     page_width,page_height = letter
@@ -93,8 +88,6 @@ def insert_qr_pdf(original_pdf,id):
 
 
 
-from django.core.mail import send_mail
-from twilio.rest import Client
 
 def send_document_notification(to_email, to_phone, document_label, document_url):
     subject = f"Nouveau scanage signale: {document_label}"

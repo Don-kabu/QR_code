@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import json
+import json,os
 from .models import Document,Scan
 from .utils import get_client_ip,insert_qr_pdf,send_document_notification
 from .forms import DocumentForm
@@ -38,8 +38,8 @@ def create_document(request):
         form = DocumentForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            document_name = form.cleaned_data['file']
             id = Document.objects.last()
+            document_name = os.path.split(id.file.name)[1]
             return_link = insert_qr_pdf(str(document_name)[:-4],id=id.unique_id)
             
         #     send_document_notification(
@@ -71,15 +71,6 @@ def visit_link(request,id):
         document_label=document.label,
         document_url="ok"
     )
-
-    print("""
-
-
-
-
-
-ok
-""")
     # except:
     #     return HttpResponse("does not exist")
     return redirect("http://www.google.com")
